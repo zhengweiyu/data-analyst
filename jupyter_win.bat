@@ -1,0 +1,1 @@
+docker run --rm -d -p 8000:8888 -v c:/Users/lotusfire/workspace:/home/ds/notebooks dataquestio/python3-starter
