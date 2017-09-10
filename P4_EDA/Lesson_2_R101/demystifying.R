@@ -246,7 +246,9 @@ mtcars$mpg
 
 # Print out any two other variables to the console.
 
+mtcars$cyl
 
+mtcars$hp
 
 # This is a vector containing the mpg (miles per gallon) of
 # the 32 cars. Run this next line of code to get the average mpg for
