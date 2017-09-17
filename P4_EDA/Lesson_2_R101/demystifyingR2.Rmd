@@ -14,6 +14,9 @@ If you know about quantiles, then the output should look familiar.
 If not, you probably recognize the min (minimum), median, mean, and max (maximum).
 We'll go over quantiles in Lesson 3 so don't worry if the output seems overwhelming.
 
+```{r}
+str(mtcars)
+```
 The str() and summary() functions are helpful commands when working with a new data set.
 The str() function gives us the variable names and their types.
 The summary() function gives us an idea of the values a variable can take on.
@@ -24,13 +27,14 @@ Subset the data so that you create a new data frame that contains
 cars that get 23 or more mpg (miles per gallon). Save it to a new data
 frame called efficient.
 ```{r}
-
+efficient <- subset(mtcars,mpg>=23)
+efficient
 ```
 
 3. How many cars get more than 23 mpg? Use one of the commands you
 learned in the demystifying.R to answer this question.
 ```{r}
-
+dim(efficient)
 ```
 
 4. We can also use logical operators to find out which car(s) get greater
@@ -66,12 +70,14 @@ Now you try some.
 6. Print the cars that have a 1/4 mile time (qsec) less than or equal to
 16.90 seconds to the console.
 ```{r}
-
+subset(mtcars, qsec < 0.25 | qsec == 16.90)
 ```
 
 7. Save the subset of cars that weigh under 2000 pounds (weight is measured in lb/1000) to a variable called lightCars. Print the numbers of cars and the subset to the console.
 ```{r}
-
+lightCars = subset(mtcars, wt < 2.0)
+lightCars
+dim(lightCars)
 ```
 
 8. You can also create new variables in a data frame. Let's say you wanted
@@ -80,6 +86,7 @@ mtcars$year. Here we'll assume that all of the models were from 1974.
 Run the code below.
 ```{r}
 mtcars$year <- 1974
+mtcars
 ```
 
 Notice how the number of variables changed in the work space. You can
@@ -90,6 +97,7 @@ To drop a variable, subset the data frame and select the variable you
 want to drop with a negative sign in front of it.
 ```{r}
 mtcars <- subset(mtcars, select = -year)
+mtcars
 ```
 
 Notice, we are back to 11 variables in the data frame.
@@ -97,13 +105,15 @@ Notice, we are back to 11 variables in the data frame.
 9. What do you think this code does? Run it to find out.
 ```{r}
 mtcars$year <- c(1973, 1974)
+mtcars
 ```
 
 Open the table of values to see what values year takes on.
 
 Drop the year variable from the data set.
 ```{r}
-
+mtcars <- subset(mtcars, select = -year)
+mtcars
 ```
 
 
@@ -161,7 +171,10 @@ answer a question to continue on in Lesson 2.
 Which car(s) have an mpg (miles per gallon) greater than or equal to 30
 OR hp (horsepower) less than 60? Create an R chunk of code to answer the question.
 
-
+```{r}
+data(mtcars)
+subset(mtcars, mpg >= 30 | hp < 60) 
+```
 
 Once you have the answer, go the [Udacity website](https://www.udacity.com/course/viewer#!/c-ud651/l-729069797/e-804129319/m-811719066) to continue with Lesson 2.
 Note: You use brackets around text followed by two parentheses to create a link. There must be no spaces between the brackets and the parentheses. Paste or type the link into the parentheses. This also works on the discussions!
