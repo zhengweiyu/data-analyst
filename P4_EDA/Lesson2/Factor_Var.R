@@ -1,4 +1,4 @@
-setwd('C:/Users/lotusfire/workspace/data-analyst/P4_EDA/Lesson_2_R101')
+setwd('C:/Users/lotusfire/workspace/data-analyst/P4_EDA/Lesson2')
 getwd()
 
 reddit <- read.csv('reddit.csv') 
