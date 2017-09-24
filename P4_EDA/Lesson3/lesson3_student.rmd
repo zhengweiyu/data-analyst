@@ -177,6 +177,12 @@ Response:
 Notes:
 
 ```{r Tenure}
+qplot(x = tenure/365, data = pf, binwidth = .25, 
+  xlab = 'Nomber of years using Facebook' ,
+  ylab = 'Number od users in sample',
+  color = I('black'), fill = I('#F79420')
+  ) +
+  scale_x_continuous(breaks = 1:7) 
 
 ```
 
@@ -203,7 +209,12 @@ Notes:
 Notes:
 
 ```{r User Ages}
-
+qplot(x = age, data = pf, binwidth = 1, 
+  xlab = 'User ages',
+  ylab = 'Number of users in sample',
+  color = I('black'), fill = I('#5760AB')) +
+  scale_x_continuous(limits = c(0, 113),
+                     breaks = seq(0, 113, 5))
 ```
 
 #### What do you notice?
