@@ -140,6 +140,11 @@ qplot(x = friend_count, data = pf, binwidth = 10) +
 Notes:
 
 ```{r Omitting NA Values}
+qplot(x = friend_count, data = subset(pf, !is.na(gender)), binwidth = 10) +
+  scale_x_continuous(limits = c(0, 1000),
+                     breaks = seq(0, 1000, 50)) +
+  facet_wrap(~gender)
+  
 qplot(x = friend_count, data = na.omit(pf), binwidth = 10) +
   scale_x_continuous(limits = c(0, 1000),
                      breaks = seq(0, 1000, 50)) +
@@ -152,11 +157,9 @@ qplot(x = friend_count, data = na.omit(pf), binwidth = 10) +
 Notes:
 
 ```{r Statistics \'by\' Gender}
-qplot(x = friend_count, data = subset(pf, !is.na(gender)), binwidth = 10) +
-  scale_x_continuous(limits = c(0, 1000),
-                     breaks = seq(0, 1000, 50)) +
-  facet_wrap(~gender)
 
+table(pf$gender)
+by(pf$friend_count, pf$gender, summary)
 ```
 
 #### Who on average has more friends: men or women?
