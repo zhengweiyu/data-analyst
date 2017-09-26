@@ -16,6 +16,7 @@ Notes:
 
 ```{r Pseudo-Facebook User Data}
 getwd()
+setwd("/Users/lotusfire/workspace/data-analyst/P4_EDA/Lesson3")
 list.files()
 pf <- read.csv('pseudo_facebook.tsv',sep='\t')
 names(pf)
@@ -236,6 +237,34 @@ Notes:
 Notes:
 
 ***
+
+```{r}
+install.packages('gridExtra') 
+library(gridExtra) 
+
+qplot(x = friend_count, data = pf)
+
+p1 <- qplot(x = friend_count, data = pf)
+
+p2 <- qplot(x = log10(friend_count + 1 ), data = pf)
+
+p3 <- qplot(x = sqrt(friend_count), data = pf) 
+
+grid.arrange(p1, p2, p3, ncol=1)
+```
+
+```{r}
+p1 <- ggplot(aes( x =friend_count), data = pf) +
+  geom_histogram()
+  
+p2 <- p1 + scale_x_log10()
+
+p3 <- p1 + scale_x_sqrt()
+  
+grid.arrange(p1, p2, p3, ncol=1)
+  
+```
+
 
 ### Add a Scaling Layer
 Notes:
