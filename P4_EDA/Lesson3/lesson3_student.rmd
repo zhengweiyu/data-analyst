@@ -279,7 +279,11 @@ Notes:
 ### Frequency Polygons
 
 ```{r Frequency Polygons}
-
+ggplot(aes(x = www_likes, y = ..count../sum(..count..)), data = subset(pf, !is.na(gender))) + 
+  geom_freqpoly(aes(color = gender), binwidth=10) + 
+  scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50)) + 
+  xlab('好友数量') + 
+  ylab('Percentage of users with that friend count')
 ```
 
 ***
