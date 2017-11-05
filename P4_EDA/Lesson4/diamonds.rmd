@@ -79,14 +79,20 @@ p1 <- ggplot(aes(y = price ,x = cut ), data = df) +
 p2 <- ggplot(aes(y = price ,x = clarity ), data = df) +
   geom_boxplot(color = 'black', fill = '#099DD9') +
   coord_cartesian(ylim = c(0,7000))
-p3 <- ggplot(aes(y = price ,x = cut ), data = df) +
+p3 <- ggplot(aes(y = price ,x = color ), data = df) +
   geom_boxplot(color = 'black', fill = '#099DD9') +
-  coord_cartesian(ylim = c(0,7000))
+  coord_cartesian(ylim = c(0,10000))
 
 grid.arrange(p1,p2,p3, ncol=1)
 ```
 
 # 四分位数间距 — IQR
 ```{r}
+color_d <- subset(df, color < 'E')
+median(color_d$price)
+IQR(color_d$price)
 
+color_j <- subset(df, color > 'I')
+median(color_j$price) 
+IQR(color_j$price) 
 ```
