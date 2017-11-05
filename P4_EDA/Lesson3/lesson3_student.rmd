@@ -27,7 +27,6 @@ names(pf)
 ### Histogram of Users' Birthdays
 Notes:
 
-
 ```{r Histogram of Users\' Birthdays}
 install.packages('ggplot2')
 library(ggplot2)
@@ -145,11 +144,6 @@ qplot(x = friend_count, data = subset(pf, !is.na(gender)), binwidth = 10) +
   scale_x_continuous(limits = c(0, 1000),
                      breaks = seq(0, 1000, 50)) +
   facet_wrap(~gender)
-  
-qplot(x = friend_count, data = na.omit(pf), binwidth = 10) +
-  scale_x_continuous(limits = c(0, 1000),
-                     breaks = seq(0, 1000, 50)) +
-  facet_wrap(~gender)
 ```
 
 ***
@@ -256,11 +250,8 @@ grid.arrange(p1, p2, p3, ncol=1)
 ```{r}
 p1 <- ggplot(aes( x =friend_count), data = pf) +
   geom_histogram()
-  
 p2 <- p1 + scale_x_log10()
-
 p3 <- p1 + scale_x_sqrt()
-  
 grid.arrange(p1, p2, p3, ncol=1)
   
 ```
@@ -279,11 +270,11 @@ Notes:
 ### Frequency Polygons
 
 ```{r Frequency Polygons}
-ggplot(aes(x = www_likes, y = ..count../sum(..count..)), data = subset(pf, !is.na(gender))) + 
-  geom_freqpoly(aes(color = gender), binwidth=10) + 
-  scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50)) + 
+ggplot(aes(x = www_likes, data = subset(pf, !is.na(gender))) + 
+  geom_freqpoly(aes(color = gender), binwidth=5) + 
+  scale_x_continuous() + 
   xlab('好友数量') + 
-  ylab('Percentage of users with that friend count')
+  ylab('Percentage of users with that friend count') 
 ```
 
 ***
@@ -292,7 +283,7 @@ ggplot(aes(x = www_likes, y = ..count../sum(..count..)), data = subset(pf, !is.n
 Notes:
 
 ```{r Likes on the Web}
-
+by(pf$www_likes, pf$gender, sum)
 ```
 
 
@@ -336,7 +327,12 @@ Response:
 Notes:
 
 ```{r Getting Logical}
+summary(pf$mobile_likes)
 
+pf$mobile_check_in <- NA
+pf$mobile_check_in <- ifelse(pf$mobile_likes > 0,1,0)
+pf$mobile_check_in <- factor(pf$mobile_check_in)
+  summary(pf$mobile_check_in)
 ```
 
 Response:
