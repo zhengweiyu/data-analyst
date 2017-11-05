@@ -59,8 +59,34 @@ p1 + facet_grid(. ~ cut)
 
 # 每克拉价格
 ```{r}
-p1 <- ggplot(aes(x = price), data = df) +
+p1 <- ggplot(aes(x = price/carat), data = df) +
   geom_histogram(binwidth = 500,color = 'black', fill = '#099DD9') +
-  scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 10000)) 
-p1 + facet_grid(. ~ cut)
+  scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 2000)) + 
+  facet_wrap(~cut) 
+p1
+```
+
+# 价格箱线图
+```{r}
+install.packages('gridExtra')
+library(gridExtra)
+```
+
+```{r}
+p1 <- ggplot(aes(y = price ,x = cut ), data = df) +
+  geom_boxplot(color = 'black', fill = '#099DD9') +
+  coord_cartesian(ylim = c(0,7000))
+p2 <- ggplot(aes(y = price ,x = clarity ), data = df) +
+  geom_boxplot(color = 'black', fill = '#099DD9') +
+  coord_cartesian(ylim = c(0,7000))
+p3 <- ggplot(aes(y = price ,x = cut ), data = df) +
+  geom_boxplot(color = 'black', fill = '#099DD9') +
+  coord_cartesian(ylim = c(0,7000))
+
+grid.arrange(p1,p2,p3, ncol=1)
+```
+
+# 四分位数间距 — IQR
+```{r}
+
 ```
