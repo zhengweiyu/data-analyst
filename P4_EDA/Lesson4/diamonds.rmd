@@ -10,7 +10,7 @@ library(ggplot2)
 data("diamonds")
 df <- diamonds
 ```
-# 钻石概要
+# 钻石
 
 ```{r}
 ?diamonds
@@ -26,7 +26,7 @@ ggplot(aes(x = price), data = df) +
   scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 2000)) 
 ```
 
-# 钻石数量
+# 价格直方图小结
 
 ```{r}
 sum(df$price < 500)
@@ -34,14 +34,14 @@ sum(df$price < 200)
 sum(df$price >= 15000)
 ```
 
-# 廉价钻石
+# 钻石数量
 ```{r}
 ggplot(aes(x = price), data = df) +
   geom_histogram(binwidth = 1 ,color = 'black', fill = '#099DD9')+
   scale_x_continuous(limits = c(580, 620), breaks = seq(580, 620, 5)) 
 ```
 
-# 切工-价格直方图
+# 廉价钻石
 
 ```{r}
 p1 <- ggplot(aes(x = price), data = df) +
@@ -49,7 +49,7 @@ p1 <- ggplot(aes(x = price), data = df) +
   scale_x_continuous(limits = c(0, 20000), breaks = seq(0, 20000, 5000)) 
 p1 + facet_wrap(~cut)
 ```
-# 标尺和多直方图
+# 切工-价格直方图?
 ```{r}
 p1 <- ggplot(aes(x = price), data = df) +
   geom_histogram(binwidth = 500,color = 'black', fill = '#099DD9') +
@@ -57,7 +57,7 @@ p1 <- ggplot(aes(x = price), data = df) +
 p1 + facet_grid(. ~ cut)
 ```
 
-# 每克拉价格
+# 切工-价格
 ```{r}
 p1 <- ggplot(aes(x = price/carat), data = df) +
   geom_histogram(binwidth = 500,color = 'black', fill = '#099DD9') +
@@ -89,10 +89,15 @@ grid.arrange(p1,p2,p3, ncol=1)
 # 四分位数间距 — IQR
 ```{r}
 color_d <- subset(df, color < 'E')
-median(color_d$price)
-IQR(color_d$price)
+half_IQR <- IQR(color_d$price)/2
+max(color_d$price) - (median(color_d$price) + half_IQR)
+median(color_d$price) - half_IQR
 
 color_j <- subset(df, color > 'I')
-median(color_j$price) 
-IQR(color_j$price) 
+half_IQR = IQR(color_j$price)/2
+median(color_j$price) + half_IQR
+median(color_j$price) - half_IQR
+
+IQR(color_j$price)
+IQR(color_d$price)
 ```
