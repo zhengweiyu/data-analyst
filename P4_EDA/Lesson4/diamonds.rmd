@@ -90,14 +90,47 @@ grid.arrange(p1,p2,p3, ncol=1)
 ```{r}
 color_d <- subset(df, color < 'E')
 half_IQR <- IQR(color_d$price)/2
-max(color_d$price) - (median(color_d$price) + half_IQR)
-median(color_d$price) - half_IQR
+Q1 <- median(color_d$price) - half_IQR
+Q1
+Q3 <- median(color_d$price) + half_IQR
+Q3
 
 color_j <- subset(df, color > 'I')
-half_IQR = IQR(color_j$price)/2
-median(color_j$price) + half_IQR
-median(color_j$price) - half_IQR
+half_IQR <- IQR(color_j$price)/2
+Q1 <- median(color_j$price) - half_IQR
+Q1
+Q3 <- median(color_j$price) + half_IQR
+Q3
 
 IQR(color_j$price)
 IQR(color_d$price)
+```
+
+# 由颜色表示的每克拉价格箱线图
+```{r}
+p3 <- ggplot(aes(y = price/carat ,x = color ), data = df) +
+  geom_boxplot(color = 'black', fill = '#099DD9') +
+  coord_cartesian(ylim = c(1000,6000))
+p3
+```
+
+#  克拉频率多边形
+```{r}
+ggplot(aes(x = carat), data = df) + 
+  geom_freqpoly(binwidth = 0.01) +
+   scale_x_continuous(limits = c(0, 5), breaks = seq(0, 5, 1)) 
+```
+
+# 用 R 进行数据整理
+```{r}
+install.packages("tidyr")
+install.packages("dplyr")
+library(tidyr)
+library(dplyr)
+```
+
+# 查看数据集
+
+```{r}
+View(iris)
 ```
