@@ -95,13 +95,27 @@ Notes:
 Notes:
 
 ```{r Conditional Means}
+install.packages("dplyr")
+library(dplyr)
+```
 
+```{r}
+pf.fc_by_age <- pf %>%
+  group_by(age) %>%
+  summarise(friend_count_mean = mean(friend_count),
+            friend_count_median = median(friend_count),
+            n = n()) %>%
+  arrange(age)
+  
+head(pf.fc_by_age)
 ```
 
 Create your plot!
 
 ```{r Conditional Means Plot}
-
+ggplot(aes(x = age, y = friend_count_mean), data = pf.fc_by_age) + 
+  geom_line() + 
+  xlim(13,90)
 ```
 
 ***
@@ -110,7 +124,13 @@ Create your plot!
 Notes:
 
 ```{r Overlaying Summaries with Raw Data}
-
+ggplot(aes(x = age, y = friend_count), data = pf) + 
+  geom_point(alpha = 1/10, position = position_jitter(h=0), color ="orange") + 
+  geom_line(stat = "summary", fun.y = mean) + 
+  geom_line(stat = "summary", fun.y = quantile, fun.args = list(probs = .1),  linetype =2, color = "blue") +
+    geom_line(stat = "summary", fun.y = quantile, fun.args = list(probs = .5),   color = "blue") +
+  geom_line(stat = "summary", fun.y = quantile, fun.args = list(probs = .9),  linetype =2, color = "blue") +
+  coord_cartesian(xlim = c(13, 70), ylim=c(0,1000)) 
 ```
 
 #### What are some of your observations of the plot?
