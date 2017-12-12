@@ -149,7 +149,9 @@ Notes:
 Notes:
 
 ```{r Correlation}
-
+age <- pf$age
+friend_count <- pf$friend_count
+cor.test(age, friend_count,method = "pearson")
 ```
 
 Look up the documentation for the cor.test function.
@@ -159,11 +161,15 @@ Response:
 
 ***
 
+```{r}
+?cor.test
+```
+
 ### Correlation on Subsets
 Notes:
 
 ```{r Correlation on Subsets}
-with(                 , cor.test(age, friend_count))
+with(subset(pf, age <=70), cor.test(age, friend_count))
 ```
 
 ***
@@ -177,7 +183,11 @@ Notes:
 Notes:
 
 ```{r}
-
+ggplot(aes(x = www_likes_received, y = likes_received), data = pf) + 
+  geom_point() + 
+  xlim(0,quantile(pf$www_likes_received, 0.95)) + 
+  ylim(0,quantile(pf$likes_received, 0.95)) +
+  geom_smooth(method='lm', color = 'red')
 ```
 
 ***
@@ -186,7 +196,9 @@ Notes:
 Notes:
 
 ```{r Strong Correlations}
-
+www_likes_received <- pf$www_likes_received
+likes_received <- pf$likes_received
+cor.test(www_likes_received, likes_received,method = "pearson")
 ```
 
 What's the correlation betwen the two variables? Include the top 5% of values for the variable in the calculation and round to 3 decimal places.
@@ -211,11 +223,17 @@ Notes:
 install.packages('alr3')
 library(alr3)
 ```
+```{r}
+data(Mitchell)
+?Mitchell
+head(Mitchell)
+```
 
 Create your plot!
 
 ```{r Temp vs Month}
-
+ggplot(aes(x = Month, y = Temp), data = Mitchell) + 
+  geom_point() 
 ```
 
 ***
@@ -223,11 +241,17 @@ Create your plot!
 ### Noisy Scatterplots
 a. Take a guess for the correlation coefficient for the scatterplot.
 
+0
+
 b. What is the actual correlation of the two variables?
 (Round to the thousandths place)
 
-```{r Noisy Scatterplots}
+0.057
 
+```{r Noisy Scatterplots}
+month <- Mitchell$Month
+temp <- Mitchell$Temp
+cor.test(x = month, y = temp, Method=c("pearson"))
 ```
 
 ***
@@ -236,7 +260,10 @@ b. What is the actual correlation of the two variables?
 Notes:
 
 ```{r Making Sense of Data}
-
+range(month)
+ggplot(data = Mitchell, aes(x = Month, y = Temp)) + 
+  geom_point() +
+  scale_x_discrete(breaks = seq(0,203,12))
 ```
 
 ***
