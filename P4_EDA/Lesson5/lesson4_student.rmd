@@ -313,7 +313,9 @@ head(pf.fc_by_age_with_months)
 
 ```{r Noise in Conditional Means}
 ggplot(aes(x = age_with_months, y = friend_count_mean), data = pf.fc_by_age_with_months) + 
-  geom_line() 
+  geom_line() + 
+  xlim(0,70) +
+  ylim(0,450)
 ```
 
 ***
@@ -322,7 +324,23 @@ ggplot(aes(x = age_with_months, y = friend_count_mean), data = pf.fc_by_age_with
 Notes:
 
 ```{r Smoothing Conditional Means}
+p1 <- ggplot(aes(x = age, y = friend_count_mean), data = pf.fc_by_age) + 
+  geom_line() +
+  xlim(0,70) +
+  ylim(0,450) +
+  geom_smooth()
 
+p2 <- ggplot(aes(x = age_with_months, y = friend_count_mean), data = pf.fc_by_age_with_months) + 
+  geom_line() + 
+  xlim(0,70) +
+  ylim(0,450) +
+  geom_smooth()
+
+p3 <- ggplot(aes(x = round(age / 5) * 5, y = friend_count), data = subset(pf, age < 71)) + 
+  geom_line(stat='summary', fun.y=mean) 
+  
+library(gridExtra)
+grid.arrange(p1,p2,p3,ncol=1)
 ```
 
 ***
