@@ -1,0 +1,29 @@
+---
+title: "lesson6_student"
+author: "zhengweiyu"
+date: "2017/12/17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+install.packages('ggplot2')
+library(ggplot2)
+
+data("diamonds")
+df <- diamonds
+str(df)
+```
+
+```{r price vs x}
+ggplot(data = df, aes(x = x, y = price) ) + 
+  geom_point() 
+```
+
+```{r}
+x <- df$x
+y <- df$y
+z <- df$z
+price <- df$price
+
+cor.test(x,price,method = c("pearson"))
+```
