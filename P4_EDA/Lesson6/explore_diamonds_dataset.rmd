@@ -26,4 +26,31 @@ z <- df$z
 price <- df$price
 
 cor.test(x,price,method = c("pearson"))
+cor.test(y,price,method = c("pearson"))
+cor.test(z,price,method = c("pearson"))
+```
+
+```{r price vs depth}
+ggplot(data = df, aes(x = depth, y = price) ) + 
+  geom_point(alpha = 1/100) +
+  scale_x_continuous(breaks = seq(50,75,2))
+```
+
+```{r}
+depth <- df$depth
+price <- df$price
+
+cor.test(depth,price,method = c("pearson"))
+```
+```{r carat vs price}
+  
+ggplot(data = df, aes(x = carat , y = price) ) + 
+  geom_point() 
+  
+```
+```{r carat vs price}
+  
+ggplot(data = df, aes(x = carat , y = price)) + 
+  geom_point(stat="summary", fun.y = quantile, fun.args=list(prob=.01)) 
+
 ```
