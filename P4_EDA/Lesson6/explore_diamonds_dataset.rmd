@@ -1,0 +1,101 @@
+---
+title: "lesson6_student"
+author: "zhengweiyu"
+date: "2017/12/17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+install.packages('ggplot2')
+library(ggplot2)
+
+data("diamonds")
+df <- diamonds
+str(df)
+```
+
+```{r price vs x}
+ggplot(data = df, aes(x = x, y = price) ) + 
+  geom_point() 
+```
+
+```{r}
+x <- df$x
+y <- df$y
+z <- df$z
+price <- df$price
+
+cor.test(x,price,method = c("pearson"))
+cor.test(y,price,method = c("pearson"))
+cor.test(z,price,method = c("pearson"))
+```
+
+```{r price vs depth}
+ggplot(data = df, aes(x = depth, y = price) ) + 
+  geom_point(alpha = 1/100) +
+  scale_x_continuous(breaks = seq(50,75,2))
+```
+
+```{r}
+depth <- df$depth
+price <- df$price
+
+cor.test(depth,price,method = c("pearson"))
+```
+```{r carat vs price}
+  
+ggplot(data = df, aes(x = carat , y = price) ) + 
+  geom_point() 
+  
+```
+```{r carat vs price top 1% }
+ggplot(data = df, aes(x = carat , y = price)) + 
+  geom_point(stat="summary", fun.y = quantile, fun.args=list(prob=.01)) 
+```
+
+
+```{r volume vs price}
+df$volume <-  df$x * df$y * df$z
+
+ggplot(data = df, aes(x = volume , y = price) ) + 
+  geom_point() 
+```
+```{r }
+df.fc_volume <- subset(df, volume!=0 & volume <800)
+
+ggplot(data = df.fc_volume, aes(x = volume , y = price) ) + 
+  geom_point()
+```
+
+```{r}
+volume <- df.fc_volume$volume
+price  <- df.fc_volume$price
+
+cor.test(volume,price,method = c("pearson"))
+```
+
+```{r }
+
+ggplot(data = df.fc_volume, aes(x = volume , y = price) ) + 
+  geom_point() +
+  ylim(0,20000) +
+  geom_smooth(method='lm',color='red')
+```
+  
+```{r}
+install.packages('dplyr')
+library(dplyr)
+```
+
+```{r}
+diamondsByClarity <- df %>%
+  group_by(clarity) %>%
+  summarise(mean_price = mean(price),
+            median_price = median(price),
+            min_price = min(price),
+            max_price = max(price),
+            n = n()) %>%
+  arrange(clarity)
+  
+head(diamondsByClarity)
+```
