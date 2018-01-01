@@ -13,6 +13,8 @@ str(pf)
 ```{r}
 install.packages("dplyr")
 library(dplyr)
+install.packages("tidyr")
+library(tidyr)
 ```
 
 ***
@@ -66,7 +68,11 @@ Notes:
 ### Wide and Long Format
 Notes:
 
-***
+```{r}
+pf.fc_by_age_gender.wide <- spread(subset(pf.fc_by_age_gender, select = c('gender', 'age', 'median_friend_count')), gender, median_friend_count)
+
+head(pf.fc_by_age_gender.wide)
+```
 
 ### Reshaping Data
 Notes:
@@ -83,7 +89,9 @@ library(reshape2)
 Notes:
 
 ```{r Ratio Plot}
-
+ggplot(aes(x = age), 
+              data = pf.fc_by_age_gender.wide) +   
+         geom_line()
 ```
 
 ***
